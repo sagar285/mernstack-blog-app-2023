@@ -26,11 +26,7 @@ const Register = () => {
         if(response.status===200){
             navigate("/login");
         }
-
     }
-
-
-
   return (
     <>
     <form className='register'>

@@ -1,6 +1,8 @@
 const mongoose =require("mongoose")
 const {Schema,model}=mongoose
 const bcrypt =require("bcryptjs");
+const jwt =require("jsonwebtoken");
+require("dotenv").config();
 
 
 const Userschema =new Schema({
@@ -19,6 +21,13 @@ const Userschema =new Schema({
     }
 
 },{timestamps:true})
+
+
+Userschema.methods.generatetoken =async function(){
+    const token = jwt.sign({_id:this._id.toString()},process.env.KEY);
+    return token;
+}
+
 
 Userschema.pre("save",async function(next){
     if(this.isModified("password")){
